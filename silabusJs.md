@@ -124,7 +124,6 @@ Selesai belajar : menunggu
 * Pertemuan 11
 	* Proyek akhir
 	* kalkulator sederhana
-  * perhitungan pajak beacukai
 
 
 
