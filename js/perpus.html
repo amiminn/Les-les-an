@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>js</title>
+  </head>
+  <body>
+    <div x-data="latihan">
+      <button style="cursor: pointer" @click="isBuku = true; isSiswa = false">
+        buku
+      </button>
+      <button style="cursor: pointer" @click="isBuku = false; isSiswa = true">
+        siswa
+      </button>
+      <br />
+      <hr />
+      <br />
+
+      <template x-if="isBuku">
+        <div>
+          <b>buku</b>
+          <table>
+            <thead>
+              <tr>
+                <th>nomor buku</th>
+                <th>judul</th>
+                <th>status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template x-for="data in buku">
+                <tr>
+                  <td x-text="data.no"></td>
+                  <td x-text="data.judul"></td>
+                  <td x-text="data.status == 0 ? 'tersedia':'dipinjam'"></td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </template>
+
+      <template x-if="isSiswa">
+        <div>
+          <b>siswa</b>
+          <table>
+            <thead>
+              <tr>
+                <th>nama</th>
+                <th>umur</th>
+                <th>kelas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template x-for="data in siswa">
+                <tr>
+                  <td x-text="data.nama"></td>
+                  <td x-text="data.umur"></td>
+                  <td
+                    x-text="data.umur < 12 ? 'sd': data.umur > 15 ? 'sma':'smp'"
+                  ></td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </template>
+    </div>
+    <!-- <script src="./perulangan.js"></script> -->
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script>
+      document.addEventListener("alpine:init", () => {
+        Alpine.data("latihan", () => ({
+          isBuku: false,
+          isSiswa: false,
+          siswa: [],
+          buku: [],
+          getSiswa() {
+            this.siswa = [
+              {
+                nama: "ilham",
+                umur: 12,
+              },
+              {
+                nama: "asep",
+                umur: 10,
+              },
+              {
+                nama: "iwan",
+                umur: 17,
+              },
+              {
+                nama: "amir",
+                umur: 16,
+              },
+              {
+                nama: "jamal",
+                umur: 14,
+              },
+            ];
+          },
+          getBuku() {
+            this.buku = [
+              {
+                judul: "ipa",
+                status: 1,
+                no: 12123,
+              },
+              {
+                judul: "ips",
+                status: 0,
+                no: 2386492,
+              },
+              {
+                judul: "sosiologi",
+                status: 0,
+                no: 45642353,
+              },
+              {
+                judul: "sejarah",
+                status: 0,
+                no: 4565675,
+              },
+              {
+                judul: "arkeologi",
+                status: 1,
+                no: 2384875,
+              },
+            ];
+          },
+          init() {
+            this.getBuku();
+            this.getSiswa();
+          },
+        }));
+      });
+    </script>
+  </body>
+</html>

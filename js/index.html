@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>js</title>
+  </head>
+  <body>
+    <div x-data="latihan">
+      buka: <span x-text="buka"></span>
+
+      <br />
+      alamat: <span x-text="kota.kecamatan"></span>
+      <br />
+
+      <button @click=" ubah() ">klick</button>
+
+      <div x-show="buka">warungnya buka</div>
+
+      <template x-if="buka">
+        <div>tokonya buka</div>
+      </template>
+
+      <template x-if="!buka">
+        <div>tokonya tutup</div>
+      </template>
+
+      <table>
+        <thead>
+          <tr>
+            <th>nama</th>
+            <th>umur</th>
+            <th>kelas</th>
+            <th>alamat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="data in siswa">
+            <tr>
+              <td x-text="data.nama"></td>
+              <td x-text="data.umur"></td>
+              <td x-text="data.umur > 10 ? 'smp': 'sd'"></td>
+              <template x-for="alm in data.alamat">
+                <td x-text="alm"></td>
+              </template>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+    <!-- <script src="./perulangan.js"></script> -->
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script>
+      document.addEventListener("alpine:init", () => {
+        Alpine.data("latihan", () => ({
+          buka: false,
+          kota: {
+            kecamatan: "",
+          },
+          cuaca: [],
+          siswa: [],
+          ubah(data) {
+            this.kota.kecamatan = "kota jogja";
+            this.buka = !this.buka;
+          },
+          getSiswa() {
+            this.siswa = [
+              {
+                nama: "ilham",
+                umur: 12,
+                alamat: [1, 2],
+              },
+              {
+                nama: "asep",
+                umur: 10,
+                alamat: [1, 5],
+              },
+            ];
+          },
+          init() {
+            this.getSiswa();
+            this.kota.kecamatan = "bandung";
+          },
+        }));
+      });
+    </script>
+  </body>
+</html>

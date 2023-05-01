@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alpine Bind</title>
+    <style>
+      .open {
+        color: green;
+      }
+
+      .close {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div x-data="data_bind">
+      <!--  -->
+      <a x-bind:href="to_google">google</a>
+      <!--  -->
+      <a
+        :href="to_google"
+        :hidden="open"
+        :target="bl"
+        :class="open == true? 'open':'close'"
+      >
+        github
+      </a>
+      <!--  -->
+      <button @click="open = !open">toggle</button>
+    </div>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script>
+      document.addEventListener("alpine:init", () => {
+        Alpine.data("data_bind", () => ({
+          to_google: "https://github.com",
+          bl: "blank_",
+          open: false,
+          init() {
+            console.log("alpine run");
+          },
+        }));
+      });
+    </script>
+  </body>
+</html>
