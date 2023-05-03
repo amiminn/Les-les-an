@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+  </head>
+  <body>
+    <div x-data="x_form">
+      <form @submit.prevent="subform">
+        <label>isi</label>
+        <br />
+        <span x-text="profile.nama"></span>
+        <hr />
+
+        <label>nama</label>
+        <input type="text" x-model="profile.nama" />
+        <span style="color: red" x-show="profile.nama.length > 10">
+          nama terlalu panjang.
+        </span>
+
+        <br />
+        <hr />
+        <label>Gender (<span x-text="profile.gender"></span>)</label>
+        <br />
+        <label>LK</label>
+        <input type="radio" value="LK" x-model="profile.gender" />
+        <br />
+        <label>PR</label>
+        <input type="radio" value="PR" x-model="profile.gender" />
+
+        <hr />
+
+        <label>sekolah (<span x-text="profile.sekolah"></span>)</label>
+        <br />
+        <select x-model="profile.sekolah">
+          <template x-for="data in list_sekolah">
+            <option :value="data.kode" x-text="data.nama_sekolah"></option>
+          </template>
+        </select>
+
+        <br /><br />
+
+        <button type="submit">submit</button>
+      </form>
+    </div>
+
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+      document.addEventListener("alpine:init", () => {
+        Alpine.data("x_form", () => ({
+          profile: {
+            nama: "",
+            gender: [],
+            sekolah: "",
+          },
+
+          list_sekolah: [],
+
+          subform() {
+            axios
+              .post("http://localhost:5000/profile", this.profile)
+              .then((data) => {
+                console.log("input berhasil.");
+                console.log(data);
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+          },
+
+          init() {
+            this.list_sekolah = [
+              {
+                nama_sekolah: "SD melati",
+                kode: "SD",
+              },
+              {
+                nama_sekolah: "SMP mawar",
+                kode: "SMP",
+              },
+              {
+                nama_sekolah: "SMA tulip",
+                kode: "SMA",
+              },
+            ];
+          },
+        }));
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "profile": [
+    {
+      "nama": "ilham",
+      "gender": "LK",
+      "sekolah": "SD",
+      "id": 1
+    },
+    {
+      "nama": "mawar",
+      "gender": "PR",
+      "sekolah": "SMP",
+      "id": 2
+    },
+    {
+      "nama": "melati",
+      "gender": "PR",
+      "sekolah": "SMA",
+      "id": 3
+    }
+  ]
+}
